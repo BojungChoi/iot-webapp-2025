@@ -339,10 +339,14 @@
 - HTML5 + CSS3 + JS + BootStrap 응용예제
     - Bootstrap Image Gallery
 
+https://github.com/user-attachments/assets/66eb9d25-60d0-4f2b-8385-90871ced9cab
     
 ## 4일차
 
 ### 프론트엔드 활용
 - HTML5 + CC3 + JS 응용예제
+
+
+
 
 ### ASP.NET Core 
