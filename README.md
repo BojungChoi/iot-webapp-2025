@@ -630,3 +630,6 @@ https://github.com/user-attachments/assets/34d1bf1f-a87c-4ec8-aa15-0e4180ada81b
 - 뉴스, 게시판 완료
 - 한글화
 - 마무리
+
+
+
