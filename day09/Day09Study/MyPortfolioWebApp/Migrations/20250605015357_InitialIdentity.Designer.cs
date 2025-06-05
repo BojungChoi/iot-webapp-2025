@@ -12,7 +12,7 @@ using MyPortfolioWebApp.Models;
 namespace MyPortfolioWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250604075930_InitialIdentity")]
+    [Migration("20250605015357_InitialIdentity")]
     partial class InitialIdentity
     {
         /// <inheritdoc />
@@ -315,7 +315,7 @@ namespace MyPortfolioWebApp.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Language")
+                    b.Property<string>("Langauge")
                         .IsRequired()
                         .HasColumnType("longtext");
 
