@@ -19,5 +19,9 @@ namespace MyPortfolioWebApp.Models
 
         // 추가로 phone number를 받으려면 string? (Nullable)로 선언
         //public string? PhoneNumber { get; set; }
+
+        public string? City { get; set; }
+        public string? Mobile { get; set; } 
+        public string? Hobby { get; set; }
     }
 }

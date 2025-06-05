@@ -7,11 +7,11 @@ namespace MyPortfolioWebApp.Controllers
     public class AccountController : Controller
     {
         // ASP.NET Core Identity 필요한 변수
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<CustomUser> userManager;
+        private readonly SignInManager<CustomUser> signInManager;
 
         // 생성자
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<CustomUser> userManager, SignInManager<CustomUser> signInManager)
         {
             // userManager나 signInManager가 null인 경우 예외를 발생시킴
             this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
@@ -30,7 +30,15 @@ namespace MyPortfolioWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+                var user = new CustomUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    City = model.City,
+                    Mobile = model.Mobile,
+                    Hobby = model.Hobby,
+                };
+
                 var result = await userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -68,7 +76,7 @@ namespace MyPortfolioWebApp.Controllers
                 {
                     return RedirectToAction("Index", "Home"); // 로그인 성공시 홈으로 이동
                 }
-                ModelState.AddModelError(string.Empty, "Invalid login attempt."); // 로그인 실패시 에러 메시지 추가
+                ModelState.AddModelError(string.Empty, "로그인 실패"); // 로그인 실패시 에러 메시지 추가
             }
             return View(model); // 로그인 오류가나면 다시 로그인화면으로 돌아감
         }

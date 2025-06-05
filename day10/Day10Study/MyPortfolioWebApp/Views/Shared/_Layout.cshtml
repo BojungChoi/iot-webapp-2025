@@ -1,6 +1,6 @@
 ﻿@*의존성 주입(Dependency Injection)으로 객체 추가*@
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<CustomUser> SignInManager
+@inject UserManager<CustomUser> UserManager
 
 @functions {
     // 아래의 HTML에서만 사용할 C# 메서드 정의
@@ -53,7 +53,7 @@
             <a asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center me-auto me-xl-0">
                 <!-- Uncomment the line below if you also wish to use an image logo -->
                 <!-- <img src="assets/img/logo.png" alt=""> -->
-                <h1 class="fw-bolder">헤헤</h1>
+                <h1 class="fw-bolder">Retouch.Choi</h1>
             </a>
 
             <nav id="navmenu" class="navmenu">
