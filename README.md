@@ -3,12 +3,50 @@
 <p>IoT 개발자 과정 <a href="https://dotnet.microsoft.com/ko-kr/apps/aspnet" target="_blank" style="color:red;">ASP.NET Core</a> 학습 리포지토리</p>
 
 
-## 프로젝트 영상
+## 게시판 구현 , 디자인 업로드 영상 & 사진
 
 
 
 https://github.com/user-attachments/assets/15f795b7-eb46-4e6f-ab3d-d1b544fef927
 
+
+<img src="./image/Board01.png" width="500">
+<img src="./image/Board02.png" width="500">
+<img src="./image/Board03.png" width="500">
+<img src="./image/Board04.png" width="500">
+<img src="./image/Board05.png" width="500">
+
+## 게시판 기능 구현 정리
+
+본 게시판은 ASP.NET Core MVC 기반으로 개발되었으며, 사용자 인증 및 CRUD 기능을 포함한 기본 게시판 시스템입니다.
+
+## 주요 기능
+
+### 1. 사용자 인증 기반 기능
+- 로그인된 사용자에게만 "글쓰기" 버튼 노출
+- 게시글 작성, 수정, 삭제는 로그인 사용자만 접근 가능
+
+### 2. 게시글 CRUD
+- **글 작성**: 이메일, 작성자, 제목, 내용, 작성일, 조회수 입력
+- **글 목록 조회**: 게시글 리스트 테이블 형태로 출력
+- **글 상세 보기**: 각 게시글의 상세 정보를 출력
+- **글 수정**: 기존 게시글의 내용 수정 가능
+- **글 삭제**: 삭제 전 경고 메시지 출력 후 삭제 처리
+
+### 3. 게시글 검색
+- 상단 검색창을 통해 게시글 제목/내용 검색 가능
+
+### 4. 페이지네이션
+- ViewBag 기반 페이지네이션 구현
+- 첫/이전/다음/마지막 페이지 네비게이션 지원
+
+### 5. UI/UX 요소
+- Bootstrap 아이콘(`bi-xxx`) 사용으로 직관적인 인터페이스 구현
+- 유효성 검사 메시지 표시 (`asp-validation-summary`, `asp-validation-for`)
+
+## 기타
+- View 구성: Razor Pages(.cshtml)
+- ViewModel: `Board` 모델을 기반으로 데이터 처리
 
 
 ## 1일차
