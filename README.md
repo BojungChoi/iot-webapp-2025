@@ -3,6 +3,11 @@
 <p>IoT 개발자 과정 <a href="https://dotnet.microsoft.com/ko-kr/apps/aspnet" target="_blank" style="color:red;">ASP.NET Core</a> 학습 리포지토리</p>
 
 
+## 프로젝트 영상
+
+https://github.com/user-attachments/assets/29adb98c-c5c6-420f-be89-8e7f88a2a659
+
+
 ## 1일차
 
 ### Web
