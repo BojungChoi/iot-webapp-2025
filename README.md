@@ -5,7 +5,10 @@
 
 ## 프로젝트 영상
 
-https://github.com/user-attachments/assets/29adb98c-c5c6-420f-be89-8e7f88a2a659
+
+
+https://github.com/user-attachments/assets/15f795b7-eb46-4e6f-ab3d-d1b544fef927
+
 
 
 ## 1일차
