@@ -1066,6 +1066,23 @@ https://github.com/user-attachments/assets/15f795b7-eb46-4e6f-ab3d-d1b544fef927
 
 ### ASP.NET Core API서버(계속)
 
-#### WebAPI 서버 + 웹사이트 + 윈앱
+#### WebAPI 서버 + 웹사이트 + 윈앱 (WPF)
+- Todo List 오늘할일 API 서비스
+
+    | API                             | 설명                   | Request body      | Response body     |
+    |--------------------------------|------------------------|-------------------|-------------------|
+    | GET ~/api/todoitems            | 모든 할일정보 가져오기 | None              | 할일정보 배열     |
+    | GET ~/api/todoitems/{id}       | 특정 할일정보 가져오기 | None              | 할일정보 한 건    |
+    | POST ~/api/todoitems           | 새 할일 추가           | todoItem 데이터   | todoItem 데이터   |
+    | PUT ~/api/todoitems/{id}       | 기존할일 수정          | todoItem 데이터   | None              |
+    | DELETE ~/api/todoitems/{id}    | 기존할일 삭제          | None              | None              |
+
+    1. 프로젝트생성
+    2. 패키지 설치
+    3. DB구성, 생성
+    4. 컨트롤러 생성(내용 생략, 위에 다있음)
+
+- WPF 앱 API 사용 - 데이터포털로 부산맛집정보앱, 영화즐겨찾기와 동일
+
 
 ### AWS 클라우드 업로드
