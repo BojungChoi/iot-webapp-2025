@@ -1,0 +1,69 @@
+-- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: smarthome
+-- ------------------------------------------------------
+-- Server version	9.2.0
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `AspNetUsers`
+--
+
+DROP TABLE IF EXISTS `AspNetUsers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `AspNetUsers` (
+  `Id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `UserName` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `NormalizedUserName` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `Email` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `NormalizedEmail` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `EmailConfirmed` tinyint(1) NOT NULL,
+  `PasswordHash` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `SecurityStamp` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `ConcurrencyStamp` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `PhoneNumber` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `PhoneNumberConfirmed` tinyint(1) NOT NULL,
+  `TwoFactorEnabled` tinyint(1) NOT NULL,
+  `LockoutEnd` datetime(6) DEFAULT NULL,
+  `LockoutEnabled` tinyint(1) NOT NULL,
+  `AccessFailedCount` int NOT NULL,
+  `City` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `Hobby` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `Mobile` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UserNameIndex` (`NormalizedUserName`),
+  KEY `EmailIndex` (`NormalizedEmail`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `AspNetUsers`
+--
+
+LOCK TABLES `AspNetUsers` WRITE;
+/*!40000 ALTER TABLE `AspNetUsers` DISABLE KEYS */;
+INSERT INTO `AspNetUsers` VALUES ('08e935ec-b8ac-4f27-ad5a-891f94b97165','shangus@gmail.com','SHANGUS@GMAIL.COM','shangus@gmail.com','SHANGUS@GMAIL.COM',0,'AQAAAAIAAYagAAAAEPdsAy9ekLe9pUlzPvXYD9NwnnMdE1oEcEJ/Y66bO7GJwrCgeSUGVhcZEAkoWskpzw==','4CIKXZYRPHG6AFH5UT5XXKUDZPLKAB6M','8b84cca7-64e0-4643-ac62-c47db3e97568',NULL,0,0,NULL,1,0,'김해시','랩','010-2009-0523'),('0e72c746-e034-463d-b592-50fedc46c0d5','Hi@naver.com','HI@NAVER.COM','Hi@naver.com','HI@NAVER.COM',0,'AQAAAAIAAYagAAAAEMmTOqd+D/JF/1ohWchmD6L671hsVyB2CsNLVcPZGCxrIa3CSE/GeM6soiZcm8cAWw==','ZNKELIAFWR6ZO6BTSZTHURGNB7BO4UDC','076edf63-8787-4188-b0bd-acbf691fdf31',NULL,0,0,NULL,1,0,NULL,NULL,NULL),('1af2fc49-0443-4450-837a-f071ba912df6','xxx@naver.com','XXX@NAVER.COM','xxx@naver.com','XXX@NAVER.COM',0,'AQAAAAIAAYagAAAAEKC/ltlzRA+h52xF5/2TTnuSqJAZBTTCcPMtCq436bNwfxAc+60Nhsf6g5F5nBqjpg==','ET2XNBPAQBQ5TDRHAP2VRJI5Q3FI77DX','16cc28e4-3abf-4017-8abd-ad15c6a92705',NULL,0,0,NULL,1,0,'부산','운동','010-2758-9999'),('e1274484-4e9f-40c6-bfaa-72d4dc66482d','fake5378@naver.com','FAKE5378@NAVER.COM','fake5378@naver.com','FAKE5378@NAVER.COM',0,'AQAAAAIAAYagAAAAEK89/n95KI6+0CcXC/8eoJgyAjW2I+6rBSfUmpqTSsVziX2B4rSpZVj/gcQCHVzu9Q==','CYD7EHAL7W6GPIV4UGZIPMRV4X6ZPM7X','7804ba7d-f4e0-4524-832c-b34245ab603e',NULL,0,0,NULL,1,0,NULL,NULL,NULL),('fab71022-e139-45b7-9fe4-4777b6e4b561','be1109@naver.com','BE1109@NAVER.COM','be1109@naver.com','BE1109@NAVER.COM',0,'AQAAAAIAAYagAAAAEEUNSvXLYNsH/fexOYWpasF1rXoHGiphY2NXbDV0hNxX172LOwurZCjSRLEa9/sI1Q==','2PIPZV3WKUPEZ3IX3R5WR27UUCYG74EU','45cdc780-1c4e-42a6-82b7-7c7668b99bd0',NULL,0,0,NULL,1,0,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `AspNetUsers` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-06-12 16:29:42

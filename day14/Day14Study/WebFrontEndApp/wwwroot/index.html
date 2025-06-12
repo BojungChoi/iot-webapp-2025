@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TodoList App</title>
+    <!-- Bootstrap, jQuery 클라이언트 라이브러리 -->
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/site.css" />
+    <!-- jQuery는 로드이벤트 때문에 head에 들어가야 할때도 있음 -->
+    <script src="lib/jquery/jquery.min.js"></script>
+    <style>
+        .list-group-item:hover {
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+
+        .list-group-item.active {
+            background-color: #0d6efd;
+            color: white;
+            font-weight: bold;
+        }
+
+        .card-header {
+            background-color: #f0f8ff;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .btn i {
+            margin-right: 6px;
+        }
+
+        .display-5 {
+            color: #0d6efd;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            // 리스트 클릭 시 상세내용 입력창에 표시
+            $('#todoItems').on('click', 'label', function () {
+                const $item = $(this);
+                $('#in-id').val($item.data('id'));
+                $('#in-title').val($item.data('title'));
+                $('#in-todoDate').val($item.data('date'));
+                $('#in-isComplete').prop('checked', $item.data('complete') == 1);
+
+                // 선택된 항목 강조
+                $('#todoItems label').removeClass('active');
+                $(this).addClass('active');
+            });
+
+            // function getData() {} == var getData == function () {}
+            var getData = function () {
+                $.getJSON("http://localhost:6200/api/TodoItems", function (data) {
+                    $('#todoItems').empty();
+
+                    $.each(data, function (key, val) {
+                        let isComplete = val.isComplete;
+                        let formattedDate = `${val.todoDate.slice(0, 4)}-${val.todoDate.slice(4, 6)}-${val.todoDate.slice(6, 8)}`;
+
+                        $(`<label class="list-group-item d-flex gap-3"
+                                   data-id="${val.id}"
+                                   data-title="${val.title}"
+                                   data-date="${formattedDate}"
+                                   data-complete="${isComplete}">
+                             <input class="form-check-input flex-shrink-0"
+                                    type="checkbox" value=""
+                                    ${isComplete == 1 ? 'checked' : ''} disabled />
+                             <span>
+                               [${val.id}] <strong>${val.title}</strong>
+                               <small class="d-block text-body-secondary">
+                                 <i class="bi bi-calendar-check-fill"></i>
+                                 ${formattedDate}
+                               </small>
+                             </span>
+                           </label>`).appendTo($('#todoItems'));
+                    });
+                });
+            }
+
+            getData(); // 로딩 시 데이터 전체 조회
+
+            // btnQuery 버튼클릭 이벤트 메서드
+            $('#btnQuery').click(function () {
+                let id = $('#id').val();
+
+                if (id == "") {
+                    getData();
+
+                    // 전체 조회시 할 일 입력 영역을 전부 초기화
+                    $('#in-id').val('');
+                    $('#in-title').val('');
+                    $('#in-todoDate').val('');
+                    $('#in-isComplete').prop('checked', 0);
+                }
+                else {
+                    $.getJSON(`http://localhost:6200/api/TodoItems/${id}`, function (data) {
+                        $('#todoItems').empty();
+
+                        let isComplete = data.isComplete;
+                        $(`<label class="list-group-item d-flex gap-3">
+                                 <input class="form-check-input flex-shrink-0"
+                                        type="checkbox" value=""
+                                        ${isComplete == 1 ? 'checked' : ''} disabled />
+                                 <span>
+                                   <strong>${data.title}</strong>
+                                   <small class="d-block text-body-secondary">
+                                     <i class="bi bi-calendar-check-fill"></i>
+                                     ${data.todoDate.slice(0, 4)}-${data.todoDate.slice(4, 6)}-${data.todoDate.slice(6, 8)}
+                                   </small>
+                                 </span>
+                               </label>`).appendTo($('#todoItems'));
+
+                        // 할 일 입력영역 데이터 할당
+                        $('#in-id').val(data.id);
+                        $('#in-title').val(data.title);
+                        $('#in-todoDate').val(`${data.todoDate.slice(0, 4)}-${data.todoDate.slice(4, 6)}-${data.todoDate.slice(6, 8)}`);
+                        $('#in-isComplete').prop('checked', isComplete == 1);
+                    });
+                }
+            });
+
+            // btnInsert 버튼클릭 이벤트 메서드
+            $('#btnInsert').click(function () {
+                var todoItem = {
+                    'id': 0,
+                    'title': $('#in-title').val(),
+                    'todoDate': $('#in-todoDate').val().replace(/-/g, ''),
+                    'isComplete': $('#in-isComplete').prop('checked')
+                };
+
+                $.ajax("http://localhost:6200/api/TodoItems", {
+                    type: "POST",
+                    data: JSON.stringify(todoItem),
+                    contentType: "application/json",
+                    success: (data) => {
+                        if (typeof (data) == "object")
+                            data = JSON.stringify(data);
+                        var item = JSON.parse(data);
+                        alert(`${item.id} / 할일이 한건 추가되었습니다.`);
+                        getData();
+
+                        // 입력 영역 초기화
+                        $('#in-id').val('');
+                        $('#in-title').val('');
+                        $('#in-todoDate').val('');
+                        $('#in-isComplete').prop('checked', false);
+                    }
+                });
+            });
+
+            // btnEdit 버튼클릭 이벤트 메서드
+            $('#btnEdit').click(function () {
+                var id = $('#in-id').val().trim();
+
+                if (id === '') {
+                    alert("수정할 ID가 없습니다.");
+                    return;
+                }
+
+                var todoItem = {
+                    'id': parseInt(id),
+                    'title': $('#in-title').val(),
+                    'todoDate': $('#in-todoDate').val().replace(/-/g, ''),
+                    'isComplete': $('#in-isComplete').prop('checked')
+                };
+
+                $.ajax(`http://localhost:6200/api/TodoItems/${id}`, {
+                    type: "PUT",
+                    data: JSON.stringify(todoItem),
+                    contentType: "application/json",
+                    success: (data) => {
+                        alert(`${id}번 할일이 수정되었습니다.`);
+                        getData();
+                        $('#in-id').val('');
+                        $('#in-title').val('');
+                        $('#in-todoDate').val('');
+                        $('#in-isComplete').prop('checked', false);
+                    },
+                    error: () => {
+                        alert("수정 중 오류 발생!");
+                    }
+                });
+            });
+
+            // btnRemove 버튼클릭 이벤트 메서드
+            $('#btnRemove').click(function () {
+                var id = $('#in-id').val();
+
+                if (id === '') {
+                    alert("삭제할 ID가 없습니다.");
+                    return;
+                }
+
+                if (!confirm(`${id}번 할일을 삭제할까요?`)) return;
+
+                $.ajax(`http://localhost:6200/api/TodoItems/${id}`, {
+                    type: "DELETE",
+                    success: () => {
+                        alert(`${id}번 할일이 삭제되었습니다.`);
+                        getData();
+                        $('#in-id').val('');
+                        $('#in-title').val('');
+                        $('#in-todoDate').val('');
+                        $('#in-isComplete').prop('checked', false);
+                    },
+                    error: () => {
+                        alert("삭제 중 오류 발생!");
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="text-center mt-5">
+        <h2 class="display-5 fw-bolder">할일 리스트</h2>
+
+        <div class="container mb-2">
+            <div class="row justify-content-end">
+                <div class="col-6">
+                    <div class="input-group">
+                        <input type="text" id="id" placeholder="ID" class="form-control" />
+                        <input type="button" value="Query" id="btnQuery" class="btn btn-secondary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container text-center">
+        <div class="list-group text-start shadow-sm" id="todoItems">
+        </div>
+    </div>
+
+    <hr class="m-4" />
+
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <div class="card text-center shadow-sm">
+                    <div class="card-header">
+                        할일 입력
+                    </div>
+                    <div class="card-body text-start">
+                        <div class="mb-2">
+                            <input type="text" class="form-control" id="in-id" placeholder="ID" readonly />
+                        </div>
+                        <div class="mb-2">
+                            <input type="text" class="form-control" id="in-title" placeholder="할일" />
+                        </div>
+                        <div class="mb-2">
+                            <input type="date" class="form-control" id="in-todoDate" />
+                        </div>
+                        <div class="mb-2">
+                            <input type="checkbox" class="form-check-input" id="in-isComplete" />
+                            <label class="form-check-label" for="in-isComplete">완료여부</label>
+                        </div>
+                        <div class="mb-0 text-end">
+                            <button class="btn btn-primary" id="btnInsert"><i class="bi bi-plus-circle"></i>저장</button>
+                            <button class="btn btn-success" id="btnEdit"><i class="bi bi-pencil-square"></i>수정</button>
+                            <button class="btn btn-danger" id="btnRemove"><i class="bi bi-trash"></i>삭제</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- js관련 클라이언트 라이브러리 -->
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/site.js"></script>
+</body>
+</html>
